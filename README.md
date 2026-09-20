@@ -70,6 +70,23 @@ Homelab UPS-management appliance built around Network UPS Tools (NUT), a persist
 
 **Useful as reference for:** resilient Cockpit appliances, power-failure state machines, NUT integration, transactional configuration, rollback, health checks, automatic recovery, systemd watchdog integration, and safe boot-after-power-loss handling.
 
+### [USB-UPS-Simulator](https://github.com/ami3go/USB-UPS-Simulator) 🔵
+
+USB HID UPS simulator for NUT testing, using an Arduino Leonardo/ATmega32U4 as the simulated UPS and a W5500 Ethernet interface as an independent control channel.
+
+**Why it is useful**
+
+- Presents a USB HID Power Device that can be consumed by NUT's `usbhid-ups` driver.
+- Lets automated tests inject mains failure, battery charge/runtime, load, input/output voltage, low-battery, overload, replacement-battery, and shutdown conditions without disconnecting the USB UPS interface.
+- Provides TCP control through the W5500 on port 5000 plus a `Serial1` UART fallback.
+- Includes an explicit `ARM ON` gate and `RESET` / `ARM OFF` safe-state recovery before state-changing tests.
+- Provides a Python API and `ups-sim` CLI for automated test scenarios.
+- CI verifies the Arduino simulator build and Python driver on multiple Python versions.
+
+**Useful with `cockpit-ups-wol`:** hardware-in-the-loop and NUT-facing fault injection for repeatable outage, low-battery, recovery-gate, shutdown, reboot, and restoration testing before running equivalent scenarios against a real UPS.
+
+**Useful as reference for:** USB HID UPS emulation, NUT `usbhid-ups` compatibility, controlled fault injection, Python-driven hardware testing, Ethernet/UART test control, and safety-gated power-management test infrastructure.
+
 ## Related Projects
 
 Projects that are not necessarily Cockpit plugins themselves but provide implementations, ideas, or components worth evaluating for reuse should be collected here and moved into more specific categories as the list grows.
